@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Todo App</title>
+    <title>Family Budget</title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
     <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
@@ -25,6 +25,30 @@
         </div>
         <button class="ui blue button" type="submit">Add</button>
     </form>
+
+    {% for budget in budget_list %}
+    <div class="ui segment">
+        <p class="ui big header">{{ budget.id }} | {{ budget.title }} | {{ budget.amount_of_budget}}</p>
+
+        <form class="ui form" action="/add_to_budget/{{ budget.id }}/" method="post">
+            {% csrf_token %}
+            <div class="field">
+                <input type="text" name="add_to_budget" placeholder="Amount of money you want to add">
+                <button class="ui green button" type="submit">Add</button>
+            </div>
+        </form>
+
+        <form class="ui form" action="/take_from_budget/{{ budget.id }}/" method="post">
+            {% csrf_token %}
+            <div class="field">
+                <input type="text" name="take_from_budget" placeholder="Amount of money you want to take">
+                <button class="ui red button" type="submit">Take</button>
+            </div>
+        </form><br>
+
+        <a class="ui black button" href="/delete/{{ budget.id }}/">Delete</a>
+    </div>
+    {% endfor %}
 </div>
 </body>
 </html>
