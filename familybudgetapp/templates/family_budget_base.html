@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+</head>
+
+<body>
+<div style="margin-top: 50px;" class="ui container">
+    <h1 class="ui center aligned header">Family Budget</h1>
+
+    <form class="ui form" action="/add" method="post">
+        {% csrf_token %}
+        <div class="field">
+            <label>Budget Title</label>
+            <input type="text" name="title" placeholder="Enter budget title..."></br>
+        </div>
+        <div class="field">
+            <label>Budget Amount</label>
+            <input type="text" name="amount_of_budget" placeholder="Enter money limit for this budget..."><br>
+        </div>
+        <button class="ui blue button" type="submit">Add</button>
+    </form>
+</div>
+</body>
+</html>
