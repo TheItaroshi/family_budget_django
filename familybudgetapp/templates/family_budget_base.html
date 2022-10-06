@@ -44,7 +44,25 @@
                 <input type="text" name="take_from_budget" placeholder="Amount of money you want to take">
                 <button class="ui red button" type="submit">Take</button>
             </div>
-        </form><br>
+        </form>
+        <br>
+        <br>
+        <br>
+        <br>
+        {% for element in budget_element_list %}
+        {% if element.budget.id == budget.id %}
+        <p class="ui small header">{{ element.description_of_element }} | {{ element.value_of_element}}</p>
+        <a class="ui grey button" href="/delete_element_from_budget/{{ element.id }}/">Remove element</a>
+        {% endif %}
+        {% endfor %}
+        <form class="ui form" action="/add_element_to_budget/{{ budget.id }}/" method="post">
+            {% csrf_token %}
+            <div class="field">
+                <input type="text" name="description_of_element" placeholder="Description of element">
+                <input type="text" name="value_of_element" placeholder="Value of element">
+                <button class="ui yellow button" type="submit">Add element</button>
+            </div>
+        </form>
 
         <a class="ui black button" href="/delete/{{ budget.id }}/">Delete</a>
     </div>

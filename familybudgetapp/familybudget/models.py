@@ -9,3 +9,12 @@ class Budget(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class BudgetElement(models.Model):
+    budget = models.ForeignKey(Budget, models.CASCADE)
+    description_of_element = models.CharField(max_length=250)
+    value_of_element = models.IntegerField()
+
+    def __str__(self):
+        return self.description_of_element
