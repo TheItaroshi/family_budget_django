@@ -1,9 +1,19 @@
 from django.shortcuts import render, redirect
 from django.views.decorators.http import require_http_methods
+from django.contrib.auth.views import LoginView, LogoutView
+from django.urls import reverse_lazy
 from .models import Budget, BudgetElement
 
 
-# Create your views here.
+class CustomLoginView(LoginView):
+    template_name = 'login.html'
+    fields = '__all__'
+    redirect_authenticated_user = True
+
+    def get_success_url(self):
+        return reverse_lazy('index')
+
+
 def index(request):
     budgets = Budget.objects.all()
     budget_elems = BudgetElement.objects.all()
