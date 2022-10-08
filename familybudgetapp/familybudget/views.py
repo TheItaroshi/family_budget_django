@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.views.decorators.http import require_http_methods
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
+from django.contrib.auth.decorators import login_required
 from .models import Budget, BudgetElement
 
 
@@ -14,6 +15,7 @@ class CustomLoginView(LoginView):
         return reverse_lazy('index')
 
 
+@login_required(login_url='login')
 def index(request):
     budgets = Budget.objects.all()
     budget_elems = BudgetElement.objects.all()

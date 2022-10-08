@@ -13,9 +13,9 @@
 <div style="margin-top: 50px;" class="ui container">
     {% if request.user.is_authenticated %}
         <p>{{request.user}}</p>
-        <a href="">Logout</a>
+        <a href='{% url "logout" %}'>Logout</a>
     {% else %}
-        <a href="">Login</a>
+        <a href='{% url "login" %}'>Login</a>
     {% endif %}
     <hr>
     <h1 class="ui center aligned header">Family Budget</h1>
