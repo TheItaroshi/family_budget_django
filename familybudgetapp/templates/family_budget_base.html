@@ -35,7 +35,7 @@
 
     {% for budget in budget_list %}
     <div class="ui segment">
-        <p class="ui big header">{{ budget.id }} | {{ budget.title }} | {{ budget.amount_of_budget}}</p>
+        <p class="ui big header">{{ budget.id }} | {{ budget.title }} | {{ budget.amount_of_budget}} | {{ budget.user.username}}</p>
 
         <form class="ui form" action="/add_to_budget/{{ budget.id }}/" method="post">
             {% csrf_token %}
