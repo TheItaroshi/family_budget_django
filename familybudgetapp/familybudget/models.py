@@ -2,12 +2,22 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-# Create your models here.
+CATEGORIES = (
+    ('food', 'Food'),
+    ('utilities', 'Utilities'),
+    ('clothing', 'Clothing'),
+    ('transport', 'Transport'),
+    ('payments', 'Payments'),
+    ('uncategorized', 'Uncategorized')
+)
+
+
 class Budget(models.Model):
     user = models.ForeignKey(User, models.CASCADE, null=False, blank=False)
     title = models.CharField(max_length=100, null=False, blank=False)
     amount_of_budget = models.IntegerField()
     complete = models.BooleanField(default=False)
+    category = models.CharField(max_length=20, choices=CATEGORIES)
 
     def __str__(self):
         return self.title
