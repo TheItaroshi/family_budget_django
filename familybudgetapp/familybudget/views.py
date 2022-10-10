@@ -6,9 +6,21 @@ from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.views.generic import FormView
+from rest_framework import viewsets
 
 from .models import Budget, BudgetElement
 from .filter import BudgetFilter
+from .serializers import BudgetSerializer, BudgetElementSerializer
+
+
+class BudgetViewSet(viewsets.ModelViewSet):
+    queryset = Budget.objects.all()
+    serializer_class = BudgetSerializer
+
+
+class BudgetElementViewSet(viewsets.ModelViewSet):
+    queryset = BudgetElement.objects.all()
+    serializer_class = BudgetElementSerializer
 
 
 class CustomLoginView(LoginView):
@@ -44,8 +56,6 @@ def index(request):
     filterset = BudgetFilter(data=request.GET, queryset=queryset)
     budgets = filterset.qs
     budget_elems = BudgetElement.objects.all()
-    print(budgets)
-    print(queryset)
     return render(request, 'family_budget_base.html', {
         'filter': filterset,
         'budget_list': budgets,
