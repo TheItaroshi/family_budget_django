@@ -20,6 +20,15 @@
     <hr>
     <h1 class="ui center aligned header">Family Budget</h1>
 
+
+    <hr>
+    <form method="GET">
+        {{ filter.form }}
+        <button type="submit">Filter</button>
+    </form>
+
+    <hr>
+
     <form class="ui form" action="/add" method="post">
         {% csrf_token %}
         <div class="field">
@@ -33,9 +42,9 @@
         <button class="ui blue button" type="submit">Add</button>
     </form>
 
-    {% for budget in budget_list %}
+    {% for budget in filter.qs %}
     <div class="ui segment">
-        <p class="ui big header">{{ budget.id }} | {{ budget.title }} | {{ budget.amount_of_budget}} | {{ budget.user.username}} | {{ budget.get_category_display }}</p>
+        <p class="ui big header">{{ budget.id }} | {{ budget.title }} | {{ budget.complete }} | {{ budget.amount_of_budget}} | {{ budget.user.username}} | {{ budget.get_category_display }}</p>
 
         <form class="ui form" action="/add_to_budget/{{ budget.id }}/" method="post">
             {% csrf_token %}

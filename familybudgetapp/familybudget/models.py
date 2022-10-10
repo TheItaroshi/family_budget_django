@@ -11,6 +11,11 @@ CATEGORIES = (
     ('uncategorized', 'Uncategorized')
 )
 
+GROUPS = (
+    ('private', 'Private'),
+    ('family', 'Family')
+)
+
 
 class Budget(models.Model):
     user = models.ForeignKey(User, models.CASCADE, null=False, blank=False)
@@ -18,6 +23,7 @@ class Budget(models.Model):
     amount_of_budget = models.IntegerField()
     complete = models.BooleanField(default=False)
     category = models.CharField(max_length=20, choices=CATEGORIES)
+    group = models.CharField(max_length=20, choices=GROUPS)
 
     def __str__(self):
         return self.title

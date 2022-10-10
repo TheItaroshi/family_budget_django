@@ -6,7 +6,9 @@ from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.views.generic import FormView
+
 from .models import Budget, BudgetElement
+from .filter import BudgetFilter
 
 
 class CustomLoginView(LoginView):
@@ -38,14 +40,16 @@ class CustomRegisterView(FormView):
 
 @login_required(login_url='login')
 def index(request):
-    print(request.user.id)
-    test = Budget.objects.all()
-    budgets = Budget.objects.all().filter(user=request.user.id)
+    queryset = Budget.objects.all()
+    filterset = BudgetFilter(data=request.GET, queryset=queryset)
+    budgets = filterset.qs
     budget_elems = BudgetElement.objects.all()
-    for bu in test:
-        print(bu.amount_of_budget)
-    return render(request, 'family_budget_base.html', {'budget_list': budgets,
-                                                       'budget_element_list': budget_elems})
+    print(budgets)
+    print(queryset)
+    return render(request, 'family_budget_base.html', {
+        'filter': filterset,
+        'budget_list': budgets,
+        'budget_element_list': budget_elems})
 
 
 @require_http_methods(['POST'])
