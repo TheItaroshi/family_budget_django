@@ -20,10 +20,10 @@ GROUPS = (
 class Budget(models.Model):
     user = models.ForeignKey(User, models.CASCADE, null=False, blank=False)
     title = models.CharField(max_length=100, null=False, blank=False)
-    amount_of_budget = models.IntegerField()
+    amount_of_budget = models.IntegerField(null=False, blank=False)
     complete = models.BooleanField(default=False)
-    category = models.CharField(max_length=20, choices=CATEGORIES)
-    group = models.CharField(max_length=20, choices=GROUPS)
+    category = models.CharField(max_length=20, choices=CATEGORIES, default='uncategorized')
+    group = models.CharField(max_length=20, choices=GROUPS, default='private')
 
     def __str__(self):
         return self.title

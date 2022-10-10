@@ -39,12 +39,28 @@
             <label>Budget Amount</label>
             <input type="text" name="amount_of_budget" placeholder="Enter money limit for this budget..."><br>
         </div>
+        <div>
+            <label for="category">Choose category:</label>
+            <select name="category" id="category">
+              <option value="food">Food</option>
+              <option value="transport">Transport</option>
+              <option value="payments">Payments</option>
+              <option value="uncategorized">Uncategorized</option>
+            </select>
+        </div>
+        <div>
+            <label for="group">Choose group:</label>
+            <select name="group" id="group">
+              <option value="private">Private</option>
+              <option value="family">Family</option>
+            </select>
+        </div>
         <button class="ui blue button" type="submit">Add</button>
     </form>
 
     {% for budget in filter.qs %}
     <div class="ui segment">
-        <p class="ui big header">{{ budget.id }} | {{ budget.title }} | {{ budget.complete }} | {{ budget.amount_of_budget}} | {{ budget.user.username}} | {{ budget.get_category_display }}</p>
+        <p class="ui big header">{{ budget.id }} | {{ budget.title }} | {{ budget.complete }} | {{ budget.amount_of_budget}} | {{ budget.user.username}} | {{ budget.get_category_display }}| {{ budget.get_group_display }}</p>
 
         <form class="ui form" action="/add_to_budget/{{ budget.id }}/" method="post">
             {% csrf_token %}

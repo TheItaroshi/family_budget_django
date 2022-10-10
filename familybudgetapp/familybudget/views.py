@@ -57,7 +57,9 @@ def add(request):
     user = request.user
     title = request.POST['title']
     amount_of_budget = request.POST['amount_of_budget']
-    budget = Budget(user=user, title=title, amount_of_budget=amount_of_budget)
+    category = request.POST['category']
+    group = request.POST['group']
+    budget = Budget(user=user, title=title, amount_of_budget=amount_of_budget, category=category, group=group)
     budget.save()
     return redirect('index')
 
